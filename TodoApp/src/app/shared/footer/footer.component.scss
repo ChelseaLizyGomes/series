@@ -1,0 +1,18 @@
+@import "../../../styles.scss";
+
+footer {
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: $primary;
+    color: #FFFFF0;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    margin-top: 20px;
+    bottom: 0;
+}
+
+h6 {
+    padding: 10px
+}
