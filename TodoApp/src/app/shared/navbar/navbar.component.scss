@@ -1,0 +1,14 @@
+@import "../../../styles.scss";
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: $primary;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    margin-bottom: 20px;
+    top: 0;
+}
