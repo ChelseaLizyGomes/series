@@ -1,5 +1,32 @@
-<ul>
-  <li *ngFor="let todo of todos" [routerLink]="['/todo', todo.id]">
-    {{ todo.todo }}
-  </li>
-</ul>
+<input type="text" [(ngModel)]="newTodoTitle" placeholder="Enter new todo" />
+<button (click)="createTodo()">Add Todo</button>
+<!-- [routerLink]="['/todo', todo.id]" -->
+<div class="todo-container" *ngFor="let todo of todos">
+  <!-- <li *ngFor="let todo of todos"> -->
+  <div class="todo-text">
+    <!-- Show input field when editing -->
+    <input *ngIf="editingId === todo.id" [(ngModel)]="todo.todo" />
+    <!-- Show updated text -->
+    <span *ngIf="editingId !== todo.id">{{ todo.todo }}</span>
+  </div>
+  <div>
+    <button
+      class="btn btn-primary"
+      *ngIf="editingId !== todo.id"
+      (click)="editingId = todo.id"
+    >
+      ✏️ Edit
+    </button>
+  </div>
+  <div>
+    <button
+      class="btn btn-success"
+      *ngIf="editingId === todo.id"
+      (click)="updateTodo(todo)"
+    >
+      ✔️ Save
+    </button>
+  </div>
+
+  <button class="btn btn-danger" (click)="removeTodo(todo)">X</button>
+</div>

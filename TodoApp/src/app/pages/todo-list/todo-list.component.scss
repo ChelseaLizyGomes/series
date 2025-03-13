@@ -1,0 +1,25 @@
+//mobile
+.todo-container {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.todo-text {
+    flex-grow: 1;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    width: 400px;
+}
+
+
+//desktop
+@media screen and (min-width: 768px) {
+    .todo-text {
+        text-overflow: unset;
+        overflow: none;
+        white-space: unset;
+        width: auto;
+    }
+}
