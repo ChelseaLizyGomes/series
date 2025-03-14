@@ -1,5 +1,11 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import * as bootstrap from 'bootstrap';
@@ -21,6 +27,7 @@ export class TodoListComponent implements OnInit {
   selectedTodo!: Todo | null;
 
   private allTodoService = inject(TodoService);
+  @ViewChild('deleteModal') deleteModal!: ElementRef;
 
   ngOnInit(): void {
     this.loadAllTodos();
@@ -38,9 +45,8 @@ export class TodoListComponent implements OnInit {
   openDeleteModal(todo: Todo) {
     this.selectedTodo = todo;
 
-    const modalElement = document.getElementById('deleteModal');
-    if (modalElement) {
-      const modal = new bootstrap.Modal(modalElement);
+    if (this.deleteModal) {
+      const modal = new bootstrap.Modal(this.deleteModal.nativeElement);
       modal.show();
     }
   }
