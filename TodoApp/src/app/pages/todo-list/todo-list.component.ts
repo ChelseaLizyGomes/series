@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import * as bootstrap from 'bootstrap';
 import { take } from 'rxjs';
 import { Todo } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
@@ -17,6 +18,7 @@ export class TodoListComponent implements OnInit {
   todos!: Todo[];
   editingId: number | null = null;
   newTodoTitle = '';
+  selectedTodo!: Todo | null;
 
   private allTodoService = inject(TodoService);
 
@@ -33,12 +35,27 @@ export class TodoListComponent implements OnInit {
       });
   }
 
-  removeTodo(todo: Todo): void {
+  openDeleteModal(todo: Todo) {
+    this.selectedTodo = todo;
+
+    const modalElement = document.getElementById('deleteModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  confirmDelete(todo: Todo): void {
+    if (!this.selectedTodo) return;
+
     this.allTodoService
       .deleteTodo(todo.id)
       .pipe(take(1))
       .subscribe((_res) => {
-        this.todos = this.todos.filter((delTodo) => delTodo.id !== todo.id);
+        this.todos = this.todos.filter(
+          (delTodo) => delTodo.id !== this.selectedTodo?.id
+        );
+        this.selectedTodo = null;
       });
   }
 
