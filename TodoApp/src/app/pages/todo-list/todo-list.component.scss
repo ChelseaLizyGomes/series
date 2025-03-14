@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 //mobile
 .todo-container {
     display: flex;
@@ -13,6 +15,10 @@
     width: 400px;
 }
 
+.toast {
+    background-color: rgba(2, 117, 59, 0.5);
+    color: white;
+}
 
 //desktop
 @media screen and (min-width: 768px) {

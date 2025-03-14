@@ -28,6 +28,7 @@ export class TodoListComponent implements OnInit {
 
   private allTodoService = inject(TodoService);
   @ViewChild('deleteModal') deleteModal!: ElementRef;
+  @ViewChild('saveToast', { static: false }) saveToast!: ElementRef;
 
   ngOnInit(): void {
     this.loadAllTodos();
@@ -53,7 +54,6 @@ export class TodoListComponent implements OnInit {
 
   confirmDelete(todo: Todo): void {
     if (!this.selectedTodo) return;
-
     this.allTodoService
       .deleteTodo(todo.id)
       .pipe(take(1))
@@ -71,7 +71,15 @@ export class TodoListComponent implements OnInit {
       .pipe(take(1))
       .subscribe((_res) => {
         this.editingId = null;
+        this.showToast();
       });
+  }
+
+  showToast() {
+    if (this.saveToast) {
+      const toast = new bootstrap.Toast(this.saveToast.nativeElement);
+      toast.show();
+    }
   }
 
   createTodo(): void {
